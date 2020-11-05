@@ -22,6 +22,7 @@ The user would be able to:
 2. Python
 3. Django
 1. Postgres
+1. Crispy Forms
 1. Heroku for deployment
 1. Cloudinary for Images
 
