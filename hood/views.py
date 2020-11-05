@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http  import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
 from .forms import SignupForm,UpdateUserForm,UpdateProfileForm,NeighbourHoodForm,BusinessForm, PostForm
 from .models import Profile, User, Neighbourhood, Business, Post
-
+from .email import send_welcome_email
 
 # Create your views here.
 
@@ -18,8 +19,9 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
+            email = form.cleaned_data['email']
 
-
+            send_welcome_email(username=username,email=email)
             user = authenticate(username=username, password=password)
             login(request, user)
             return redirect('index')
