@@ -53,51 +53,51 @@ def edit_profile(request, username):
 
 def create_hood(request):
     if request.method == 'POST':
-        form = NeighbourHoodForm(request.POST, request.FILES)
+        form = NeighborhoodForm(request.POST, request.FILES)
         if form.is_valid():
             hood = form.save(commit=False)
             hood.admin = request.user.profile
             hood.save()
             return redirect('allhoods')
     else:
-        form = NeighbourHoodForm()
+        form = NeighborhoodForm()
     return render(request, 'createhood.html', {'form': form})
 
 def allhoods(request):
-    allhoods = Neighbourhood.objects.all()
+    allhoods = Neighborhood.objects.all()
     allhoods = allhoods[::-1]
    
     return render(request, 'allhoods.html', {"allhoods":allhoods})
 
-def join_a_hood(request, id):
-    neighbourhood = get_object_or_404(Neighbourhood, id=id)
-    request.user.profile.neighbourhood = neighbourhood
+def join_hood(request, id):
+    neighborhood = get_object_or_404(Neighborhood, id=id)
+    request.user.profile.neighborhood = neighborhood
     request.user.profile.save()
     return redirect('allhoods')
 
 def leave_hood(request, id):
-    request.user.profile.neighbourhood = None
+    request.user.profile.neighborhood = None
     request.user.profile.save()
     return redirect('allhoods')
 
 def hood(request, hood_id):
-    hood = Neighbourhood.objects.get(id=hood_id)
+    hood = Neighborhood.objects.get(id=hood_id)
 
     return render(request, 'hood.html', {'hood':hood})
 
-def hoodpopulation(request, hood_id):
-    hood = Neighbourhood.objects.get(id=hood_id)
-    populace = Profile.objects.filter(neighbourhood=hood)
-    return render(request, 'population.html', {'populace': populace})
+def hood_tenants(request, hood_id):
+    hood = Neighborhood.objects.get(id=hood_id)
+    tenants = Profile.objects.filter(neighborhood=hood)
+    return render(request, 'population.html', {'tenants': tenants})
 
 def business(request, hood_id):
-    hood = Neighbourhood.objects.get(id=hood_id)
-    business = Business.objects.filter(neighbourhood=hood)
+    hood = Neighborhood.objects.get(id=hood_id)
+    business = Business.objects.filter(neighborhood=hood)
     if request.method == 'POST':
         form = BusinessForm(request.POST)
         if form.is_valid():
             form = form.save(commit=False)
-            form.neighbourhood = hood
+            form.neighborhood = hood
             form.user = request.user.profile
             form.save()
             return redirect('business', hood.id)
@@ -106,13 +106,13 @@ def business(request, hood_id):
     return render(request, 'business.html', {'business': business,'form':form})
 
 def post(request, hood_id):
-    hood = Neighbourhood.objects.get(id=hood_id)
-    post = Post.objects.filter(neighbourhood=hood)
+    hood = Neighborhood.objects.get(id=hood_id)
+    post = Post.objects.filter(neighborhood=hood)
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
             form = form.save(commit=False)
-            form.neighbourhood = hood
+            form.neighborhood = hood
             form.user = request.user.profile
             form.save()
             return redirect('post', hood.id)
