@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% load bootstrap4 %}
+<div class="container-fluid" >
+{% if mitaa %}
+    <div class="d-flex flex-wrap justify-content-center">
+        {% for mtaa in mitaa %}
+        <div class="card col-lg-3 col-md-2 m-3 p-2" >
+     <img src="{{ mtaa.picture.url}}" class="card-img-top " id="home-img"alt="{{mtaa.name}}" style=" width:100%; height:300px; object-fit:cover;
+   object-position:50% 50%;">
+   
+  <div class="card-body">
+  
+   <h4 class="text-center"> <b>{{mtaa.name|title}} </b></h4><br>
+   <p class=""> Occupants : {{mtaa.occupant.count}}</p>
+   <p class="float-left"> <i class="fas fa-map-marker-alt"></i>   {{mtaa.location}}</p>
+   {% if request.user.profile.neighbourhood == mtaa %}
+    <p class="float-right"><a href="{% url 'leave_mtaa' mtaa.id %}" class="badge badge-danger">Leave Mtaa</a></p>
+    {% elif request.user.profile.neighbourhood == None %}
+    <p class="float-right"><a href="{% url 'join_mtaa' mtaa.id %}" class="badge badge-info">Join Mtaa</a></p>
+    {% endif %}
+      
+  </div>
+  
+  
+</div>
+       
+        {% endfor %}
+    </div> 
+    {% endif %}
+</div>
+{% endblock content %}
