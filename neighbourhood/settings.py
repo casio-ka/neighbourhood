@@ -147,7 +147,7 @@ STATICFILES_DIRS = (
 )
 
 LOGOUT_REDIRECT_URL = "login"
-LOGIN_REDIRECT_URL="home"
+LOGIN_REDIRECT_URL="index"
 
 # Email configurations remember to install python-decouple
 EMAIL_BACKEND = config('EMAIL_BACKEND')
