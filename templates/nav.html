@@ -1,5 +1,3 @@
-
-{% load crispy_forms_tags %}
 {% load static%}
 
 <nav class="navbar navbar-expand-lg navbar-light" >
@@ -20,12 +18,21 @@
   </div>
    
     <ul class="navbar-nav ml-auto">
+      {% if user.profile.neighborhood %}
+      <li class="nav-item"><a class="mt-3 btn btn-sm" href="{% url 'hood' user.profile.neighborhood.id %}">{{user.profile.neighborhood}}</a></li>
+        <li class="nav-item"><a class="mt-3 btn btn-sm" href="{% url 'allhoods' %}">All Hoods</a></li>
+        
+        {% else %}
+        <li class="nav-item"><a class="mt-3 btn btn-sm" href="/">Create / Join mtaa</a></li>
+        
+        {% endif %}
       {% if user.is_authenticated%}
+      <li class="nav-item"><h6> <a class="mt-3 btn btn-sm" data-toggle="modal" data-target="#emergency">Emergency Contacts</a></h6></li>
       <div style="float:left">
-        <li class="nav-item dropdown order-1">
-          <a class="nav-link mt-1" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {%if user.profile.prof_pic%}
-            <img class="rounded-circle" src="{{ user.profile.prof_pic.url }}" height ='30px' width='30px'  alt="" >
+        <li class="nav-item dropdown order-0">
+          <a class="nav-link mt-2" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {%if user.profile.profile_pic%}
+            <img class="rounded-circle" src="{{ user.profile.profile_pic.url }}" height ='30px' width='30px'  alt="" >
             {%else%}
             <img class="rounded-circle" src="https://res.cloudinary.com/dw9y1xy4x/image/upload/v1603747573/insta/default-profile_neorvq.png" height ='30px' width='30px'  alt="" >
             {% endif%}
@@ -37,17 +44,16 @@
           </div>
         </li>
       </div>
-       <h6> <a class="mt-3 btn btn-sm" data-toggle="modal" >Emergency Contacts</a> </h6>
-    
+      <li class="nav-item order-1 mb-1"><h6> <a class="mt-3 btn btn-sm">{{ user.username|title }}</a></h6></li>
       {% else %}
-        <h6>Are you a member?<a href="{% url 'login' %}" class="login btn btn-sm">REGISTER/LOGIN</a></h6>
+        <h6>Are you a member?<a href="{% url 'login' %}" class="login btn btn-sm" >REGISTER/LOGIN</a></h6>
       {% endif %}
-     
+      
     </ul>
-     
+    
   </div>
 </nav>
-<div class="modal fade" id="project" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="emergency" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-body">
