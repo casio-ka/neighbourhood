@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% load static%}
+<div class="container-fluid" >
+<form class="form-inline" method="get" action="{% url 'search' %}">
+                    {% csrf_token %}
+                    <div class="mt-2 ml-auto">
+                        <input class="form-control mr-sm-2 " type="text" placeholder="Search Business" name="title" aria-label="Search">
+                    </div>
+                </form>
+<h4 class="text-center mt-4" ><a href="" class="badge badge-info" data-toggle="modal" data-target="#business">Add
+                    Business</a></h4>
+{% if business %}
+
+    <div class="d-flex flex-wrap justify-content-center">
+
+        {% for business in business %}
+        <div class="card col-lg-3 col-md-2 m-3 p-2" >
+    
+  <div class="card-body">
+  
+   <h4 class="text-center"> <b>{{business.name|title}} </b></h4><br><hr>
+   <p class=""><b>Contact</b> : {{business.email}}</p><hr>
+   <p class=""><b>Location</b> :  {{business.neighbourhood.name}}</p><hr>
+    <p class=""><b>By</b> :  {{business.user.name}}</p><hr>
+      
+   <p class="">  {{business.description}}</p>
+    
+  </div>
+  
+  
+</div>
+       
+        {% endfor %}
+    </div> 
+    {% endif %}
+
+    <div class="modal fade" id="business" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="" method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button class="btn btn-sm btn-primary">Add Business</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
