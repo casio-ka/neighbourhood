@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% load static%}
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 mt-4">
+        <div class="card mt-auto mb-auto" >
+        <h5 class="text-center card-title mt-3"><strong>{{user.username|title}}</strong></h5>
+        {%if user.profile.profile_pic%}
+          <img class="rounded-circle  d-block mx-auto" height='250px' width='250px' src="{{ user.profile.profile_pic.url }}">
+         {%else%}
+         <img class="rounded-circle" src="https://res.cloudinary.com/dw9y1xy4x/image/upload/v1603747573/insta/default-profile_neorvq.png" height='250px' width='250px'  alt="">
+         {% endif%}
+        <div class="card-body text-center">
+          <h5 class=" mt-3"> {{user.profile.name}}</h5>
+          <hr>
+                  <p>{{user.email}}</p>
+                  <hr>
+                  <p >{{user.profile.location}}</p>
+                  <hr>
+                  <a class="float-right" href="{% url 'edit' user.username  %}">Edit Profile Details...</a>
+        </div>
+      </div>
+       
+           
+        </div>
+        
+    </div>
+
+</div>
+
+
+{% endblock %}
