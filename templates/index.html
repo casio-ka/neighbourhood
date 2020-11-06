@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% load bootstrap4 %}
+
+
+ <div id="page-content-wrapper">
+      
+        <div class="container-fluid" style="color:#ffffff;">
+        <h1 class="mt-4 text-center">Welcome to Hoods</h1>
+        <h6 class="mt-4 text-center">A nyumba kumi initiative gone DIGITAL</h6>
+       <p class="mt-4 text-center" > <a href="{% url 'allhoods' %}" type="button" class="btn btn-info btn-sm">Join</a> your mtaa to be in the loop about everything happening in their neighborhood.</p>
+        
+       <p class="mt-4 text-center">  Can't find your mtaa?  <a href="{% url 'create_a_hood' %} "type="button" class="btn btn-info btn-sm">Create A hood</a> </p>
+      </div>
+    </div>
+  
+
+{% endblock %}
