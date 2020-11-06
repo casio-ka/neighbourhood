@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% load static%}
+<div class="container-fluid" >
+
+<h4 class="text-center mt-4" ><a href="" class="badge badge-info" data-toggle="modal" data-target="#post">Add
+                  Post  </a></h4>
+{% if post %}
+    <div class="d-flex flex-wrap justify-content-center">
+        {% for post in post %}
+        <div class="card col-lg-3 col-md-2 m-3 p-2" >
+    
+  <div class="card-body">
+  
+   <h4 class="text-center"> <b>{{post.title|title}} </b></h4><br><hr>
+   <p class="">  {{post.post}} - {{post.date|date}}</p><hr>
+   <p class="float-right text-secondary"><b>By</b> : {{post.user.name}}</p>
+   <p class="float-left text-secondary"><b>Location</b> :  {{post.neighbourhood.name}}</p>
+  
+      
+   
+    
+  </div>
+  
+  
+</div>
+       
+        {% endfor %}
+    </div> 
+    {% endif %}
+
+    <div class="modal fade" id="post" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="" method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button class="btn btn-sm btn-primary">Add Post</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
