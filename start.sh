@@ -1,0 +1,16 @@
+SECRET_KEY='nbf7o^uf!b2%2#auy$r6fv)$es194d9^$i=m4@-vf7%!r$a8(w'
+ALLOWED_HOSTS='*'
+DEBUG=True
+DB_NAME='hood'
+DB_PASSWORD='nyumba'
+DB_USER='wainainakasyoka'
+DB_PORT=5432
+CLOUDINARY_CLOUD_NAME='dw9y1xy4x' 
+CLOUDINARY_API_KEY='351488684484568' 
+CLOUDINARY_API_SECRET='dJgnezt7fuEVFXB4w_MeUT6bLJY'
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS=True
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_HOST_USER='moringatester@gmail.com'
+EMAIL_HOST_PASSWORD="6&{JdLL5[VE'FED@"
