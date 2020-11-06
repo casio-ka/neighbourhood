@@ -3,27 +3,25 @@
 {% load static %}
 {% load bootstrap4 %}
 <div class="container-fluid" >
-{% if mitaa %}
+<h4 class="mt-4 text-center">Can't find your hood??  <a href="{% url 'create_a_hood' %} "type="button" class="btn btn-seconday btn-sm">Add Hood</a> </h4>
+{% if allhoods %}
     <div class="d-flex flex-wrap justify-content-center">
-        {% for mtaa in mitaa %}
+        {% for hood in allhoods %}
         <div class="card col-lg-3 col-md-2 m-3 p-2" >
-     <img src="{{ mtaa.picture.url}}" class="card-img-top " id="home-img"alt="{{mtaa.name}}" style=" width:100%; height:300px; object-fit:cover;
+   <img src="{{ hood.picture.url}}" class="card-img-top " id="home-img"alt="{{hood.name}}" style=" width:100%; height:300px; object-fit:cover;
    object-position:50% 50%;">
-   
   <div class="card-body">
   
-   <h4 class="text-center"> <b>{{mtaa.name|title}} </b></h4><br>
-   <p class=""> Occupants : {{mtaa.occupant.count}}</p>
-   <p class="float-left"> <i class="fas fa-map-marker-alt"></i>   {{mtaa.location}}</p>
-   {% if request.user.profile.neighbourhood == mtaa %}
-    <p class="float-right"><a href="{% url 'leave_mtaa' mtaa.id %}" class="badge badge-danger">Leave Mtaa</a></p>
-    {% elif request.user.profile.neighbourhood == None %}
-    <p class="float-right"><a href="{% url 'join_mtaa' mtaa.id %}" class="badge badge-info">Join Mtaa</a></p>
+   <h4 class="text-center"> <b>{{hood.name|title}} </b></h4><br>
+   <p class=""> People in {{hood.location}}: {{hood.tenant.count}}</p>
+   <p class="float-left">{{hood.location}}</p>
+   {% if request.user.profile.neighborhood == hood %}
+    <p class="float-right"><a href="{% url 'leave_hood' hood.id %}" class="btn btn-danger btn-sm">Leave</a></p>
+    {% elif request.user.profile.neighborhood == None %}
+    <p class="float-right"><a href="{% url 'join_hood' hood.id %}" class="btn btn-secondary btn-sm">Join</a></p>
     {% endif %}
       
   </div>
-  
-  
 </div>
        
         {% endfor %}
