@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% load static%}
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 mt-4">
+        <div class="card mt-auto mb-auto" >
+        <table class="table-bordered table-hover table-sm m-4">
+  <thead>
+    <tr>
+      <th scope="col">Username</th>
+      <th scope="col">Contact</th>
+    
+    </tr>
+  </thead>
+  <tbody>
+  {% for occupant in  occupants %}
+    <tr>
+      <th scope="row">{{occupant.name}}</th>
+      <td>{{occupant.user.email}}</td>
+    
+    </tr>
+    {% endfor %}
+    
+  </tbody>
+</table>
+</div>
+       
+           
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+</div>
+
+{% endblock %}
