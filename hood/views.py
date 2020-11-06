@@ -3,12 +3,12 @@ from django.http  import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
-from .forms import SignupForm,UpdateUserForm,UpdateProfileForm,NeighbourHoodForm,BusinessForm, PostForm
-from .models import Profile, User, Neighbourhood, Business, Post
+from .forms import SignupForm,UpdateUserForm,UpdateProfileForm,NeighborhoodForm,BusinessForm, PostForm
+from .models import Profile, User, Neighborhood, Business, Post
 from .email import send_welcome_email
 
 # Create your views here.
-
+@login_required(login_url='login')
 def index(request):
      return render(request, 'index.html')
 
@@ -27,10 +27,10 @@ def register(request):
             return redirect('index')
     else:
         form = SignupForm()
-    return render(request, 'registration/signup.html', {'form': form}) 
+    return render(request, 'registration/register.html', {'form': form}) 
 
 
-
+@login_required(login_url='login')
 def profile(request, username):
     return render(request, 'profile.html')
 
